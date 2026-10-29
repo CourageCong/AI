@@ -1,0 +1,294 @@
+:root {
+  --bg: #f4f5f7;
+  --card: #ffffff;
+  --text: #1f2430;
+  --muted: #8a919f;
+  --accent: #4f6ef7;
+  --accent-dark: #3d59d6;
+  --danger: #e5484d;
+  --border: #e6e8ee;
+  --shadow: 0 10px 30px rgba(31, 36, 48, 0.08);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(160deg, #eef1fb 0%, var(--bg) 40%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 48px 16px;
+  color: var(--text);
+}
+
+.app {
+  width: 100%;
+  max-width: 560px;
+  height: fit-content;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.app-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.date {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ---------- 添加任务 ---------- */
+.add-form {
+  display: flex;
+  gap: 10px;
+  background: var(--card);
+  padding: 14px;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+.add-form input {
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.add-form input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(79, 110, 247, 0.15);
+}
+
+.add-btn {
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 0 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-btn:hover {
+  background: var(--accent-dark);
+}
+
+/* ---------- 筛选栏 ---------- */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 22px 4px 12px;
+}
+
+.filters {
+  display: flex;
+  gap: 6px;
+}
+
+.filter-btn {
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--muted);
+  font-size: 13px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.count {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ---------- 任务列表 ---------- */
+.task-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card);
+  padding: 14px 16px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  animation: slideIn 0.25s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 自定义复选框 */
+.checkbox {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 2px solid #c6cbdc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.checkbox:hover {
+  border-color: var(--accent);
+}
+
+.checkbox:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.checkbox:checked::after {
+  content: "✓";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.task-text {
+  flex: 1;
+  font-size: 15px;
+  line-height: 1.5;
+  word-break: break-all;
+  cursor: pointer;
+}
+
+/* 双击进入编辑态 */
+.task-item.editing .task-text {
+  display: none;
+}
+
+.task-item.editing .edit-input {
+  display: block;
+}
+
+.edit-input {
+  display: none;
+  flex: 1;
+  font-size: 15px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 6px 10px;
+  outline: none;
+}
+
+.task-item.completed .task-text {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.task-time {
+  font-size: 12px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.delete-btn {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 16px;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.delete-btn:hover {
+  background: rgba(229, 72, 77, 0.1);
+  color: var(--danger);
+}
+
+/* ---------- 空状态 & 底部 ---------- */
+.empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 48px 0;
+  font-size: 15px;
+}
+
+.app-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+.clear-btn {
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.clear-btn:hover {
+  color: var(--danger);
+  background: rgba(229, 72, 77, 0.08);
+}
+
+/* ---------- 移动端适配 ---------- */
+@media (max-width: 480px) {
+  body {
+    padding: 24px 12px;
+  }
+
+  .add-btn {
+    padding: 0 16px;
+  }
+}
